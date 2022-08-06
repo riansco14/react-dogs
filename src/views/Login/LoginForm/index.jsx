@@ -1,50 +1,65 @@
-import React, { useState } from 'react'
+import { useFormik } from 'formik'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../../../components/Forms/Button'
 import { Input } from '../../../components/Forms/Input'
-import { loginAuth } from '../../../services/request/remote'
+import { getUser, loginAuth } from '../../../services/request/remote'
 
-import { Container, Form} from './styles'
+import { Container, Form } from './styles'
+import * as Yup from 'yup'
+import { ContextAuth } from '../../../hooks/useAuth'
+
+const validationSchema = Yup.object().shape({
+    username: Yup.string().required('Campo obrigatório'),
+    password: Yup.string().required('Campo obrigatório')
+})
 
 export function LoginForm() {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const { user, login } = useContext(ContextAuth)
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-
-        if (!username || !password)
-            return
-
-        loginAuth({
-            username,
-            password
-        })
+    async function handleSubmit({ username, password }) {
+        await login({username,password})
     }
+
+    const formik = useFormik({
+        validationSchema: validationSchema,
+        initialValues: {
+            username: '',
+            password: '',
+        },
+        onSubmit: async (values) => handleSubmit(values),
+    });
+
+
 
     return (
         <Container>
             <h1>Login Form</h1>
-            
-            <Form onSubmit={handleSubmit}>
+
+            <Form onSubmit={formik.handleSubmit}>
                 <Input
+                    id="username"
                     name="username"
                     label="Nome do usuário"
                     type="text"
-                    value={username}
-                    onChange={({ target }) => setUsername(target.value)} />
-                
+                    error={formik.errors.username}
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                />
+
                 <Input
+                    id="password"
                     name="password"
                     label="Senha"
                     type="password"
-                    value={password}
-                    onChange={({ target }) => setPassword(target.value)} />
+                    error={formik.errors.password}
+                    value={formik.values.password}
+                    onChange={formik.handleChange} />
 
                 <Button type='submit'>Entrar</Button>
             </Form>
 
-            
+
             <Link to="/login/criar">Cadastro</Link>
 
         </Container>
