@@ -25,15 +25,15 @@ export const Input = styled.input`
 
     &:focus,&:hover{
         outline: none;
-        border-color: #fb1;
+        border-color: ${({theme})=>theme.colors.primary};
         background: white;
-        box-shadow: 0 0 0 2px #fea;
+        box-shadow: 0 0 0 2px ${({theme})=>theme.colors.primaryLight};
     }
 `
 
 
 export const Error = styled.p`
-    color: #f31;
+    color: ${({theme})=>theme.colors.error};
     font-size: 0.875rem;
     margin-top: 0.25rem;
 `
