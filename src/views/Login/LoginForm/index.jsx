@@ -1,13 +1,14 @@
 import { useFormik } from 'formik'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../../../components/Forms/Button'
 import { Input } from '../../../components/Forms/Input'
-import { getUser, loginAuth } from '../../../services/request/remote'
 
-import { Container, Form } from './styles'
 import * as Yup from 'yup'
 import { ContextAuth } from '../../../hooks/useAuth'
+import { AnimeLeft, Title } from '../../../globalStyles'
+import { Form, LostPassword, Register, SubTitle } from './styles'
+import { Error } from '../../../components/Helpers/Error'
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required('Campo obrigatório'),
@@ -33,8 +34,8 @@ export function LoginForm() {
 
 
     return (
-        <Container>
-            <h1>Login Form</h1>
+        <AnimeLeft>
+            <Title>Login Form</Title>
 
             <Form onSubmit={formik.handleSubmit}>
                 <Input
@@ -59,12 +60,17 @@ export function LoginForm() {
                 {loading ?
                     <Button disabled type='submit'>Carregando...</Button> :
                     <Button type='submit'>Entrar</Button>}
-                {error && <p>{error}</p>}
+                <Error error={error} />
             </Form>
+            <LostPassword to="/login/lost-password">Perdeu a senha</LostPassword>
+            <Register>
+                <SubTitle>Cadastre-se</SubTitle>
+                <p>Ainda não possui conta ? Cadastre-se no site.</p>
+                <Button>
+                    <Link to="/login/create">Cadastro</Link>
+                </Button>
+            </Register>
 
-
-            <Link to="/login/criar">Cadastro</Link>
-
-        </Container>
+        </AnimeLeft>
     )
 }
