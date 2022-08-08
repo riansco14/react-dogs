@@ -15,10 +15,10 @@ const validationSchema = Yup.object().shape({
 })
 
 export function LoginForm() {
-    const { user, login } = useContext(ContextAuth)
+    const { loading, error, userLogin } = useContext(ContextAuth)
 
     async function handleSubmit({ username, password }) {
-        await login({username,password})
+        await userLogin({username,password})
     }
 
     const formik = useFormik({
@@ -56,7 +56,10 @@ export function LoginForm() {
                     value={formik.values.password}
                     onChange={formik.handleChange} />
 
-                <Button type='submit'>Entrar</Button>
+                {loading ?
+                    <Button disabled type='submit'>Carregando...</Button> :
+                    <Button type='submit'>Entrar</Button>}
+                {error && <p>{error}</p>}
             </Form>
 
 
