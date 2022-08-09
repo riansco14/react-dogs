@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 import { getUser, loginAuth } from "../services/request/remote";
 
 
@@ -22,7 +23,9 @@ export function ProviderAuth({ children }) {
                 try {
                     setError(null)
                     setLoading(true)
-                    const { status, data } = await getUser(token)
+                    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+                    const { status, data } = await getUser()
                     
                     if (status !== 200) {
                         throw new Error('Token invalido')
@@ -57,11 +60,13 @@ export function ProviderAuth({ children }) {
     
             await window.localStorage.setItem("@dogs:token", data.token)
 
-            const { data:dataUser, status: statusUser } = await getUser(data.token)
-            setUser(dataUser)
+            api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
 
-
+            const { data: dataUser, status: statusUser } = await getUser()
             
+            
+
+            setUser(dataUser)
         } catch (error) {
             setError(error.message)
         } finally {

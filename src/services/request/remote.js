@@ -8,9 +8,20 @@ export async function loginAuth(userData) {
     return {data, status, statusText}
 }
 
-export async function getUser(token) {
-    const response = await api.get('api/user', { headers: { 'Authorization': `Bearer ${token}` } })
+export async function getUser() {
+    const response = await api.get('api/user')
     const { data, status } = response
 
     return {status, data}
+}
+
+export async function postUser(dataUser) {
+    try {
+        const response = await api.post('api/user', dataUser)
+        const { data, status } = response
+        return {status, data}
+    } catch (error) {
+        return error.response
+    }
+    
 }
