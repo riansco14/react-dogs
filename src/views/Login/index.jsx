@@ -4,7 +4,7 @@ import { LoginCreate } from './LoginCreate';
 import { LoginForm } from './LoginForm';
 import { LoginPasswordReset } from './LoginPasswordReset';
 import { LoginLostPassword } from './LoginLostPassword';
-import { Container } from './styles';
+import { Container, FormContainer } from './styles';
 import { ContextAuth } from '../../hooks/useAuth';
 
 export function Login() {
@@ -14,12 +14,14 @@ export function Login() {
     return <Navigate to="/conta" />
   return (
     <Container>
-      <Routes>
-        <Route path='/' element={<LoginForm />} ></Route>
-        <Route path='/create' element={<LoginCreate />} ></Route>
-        <Route path='/lost-password' element={<LoginPasswordReset />} ></Route>
-        <Route path='/reset-password' element={<LoginLostPassword />} ></Route>
-      </Routes>
+      <FormContainer>
+        <Routes>
+          <Route path='/' element={<LoginForm />} ></Route>
+          <Route path='/create' element={<LoginCreate />} ></Route>
+          <Route path='/lost-password' element={<LoginPasswordReset />} ></Route>
+          <Route path='/reset-password' element={<LoginLostPassword />} ></Route>
+          </Routes>
+        </FormContainer>
     </Container>
   );
 }
