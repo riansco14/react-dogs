@@ -77,6 +77,7 @@ export function ProviderAuth({ children }) {
     }
 
     async function userLogout() {
+        api.defaults.headers.common['Authorization'] = null;
         setUser(null)
         setError(null)
         setLoading(false)
