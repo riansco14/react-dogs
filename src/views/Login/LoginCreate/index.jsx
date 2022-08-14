@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AnimeLeft, Title } from '../../../globalStyles'
 import * as Yup from 'yup'
 import { useFormik } from 'formik';
 import { Form } from './styles';
 import { Button } from '../../../components/Forms/Button';
 import { Input } from '../../../components/Forms/Input';
-import {  postUser } from '../../../services/request/remote';
 import { ContextAuth } from '../../../hooks/useAuth';
 import { Error } from '../../../components/Helpers/Error';
+import useAxiosFunction from '../../../hooks/useAxiosFunction';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Email inválido").required('Campo obrigatório'),
@@ -17,18 +17,13 @@ const validationSchema = Yup.object().shape({
 
 export function LoginCreate() {
     const { error, userLogin } = useContext(ContextAuth)
-    const [errorRegister, setErrorRegister] = useState(null)
+
+    const [response, errorRegister, loading, axiosFetch] = useAxiosFunction()
+
 
     async function handleSubmit(values) {
         const { username, email, password } = values;
-        const { status, data } = await postUser({ username, email, password })
-        
-        if (status === 200) {
-            await userLogin({ username, password });
-        } else {
-            const { message } = data;
-            setErrorRegister(message)
-        }
+        await axiosFetch({method: 'post', url: 'api/user' , requestConfig: { username, email, password }})
     }
 
     const formik = useFormik({
@@ -41,6 +36,14 @@ export function LoginCreate() {
         onSubmit: async (values) => handleSubmit(values),
     });
 
+    
+    useEffect(() => {
+        if (response && !errorRegister) {
+            const { username, password } = formik.values
+            userLogin({ username, password })
+        }
+    }, [loading])
+
 
     return (
         <AnimeLeft>
@@ -50,7 +53,7 @@ export function LoginCreate() {
                 <Input value={formik.values.email} onChange={formik.handleChange} error={formik.errors.email} label="Email" type="email" name="email" />
                 <Input value={formik.values.password} onChange={formik.handleChange} error={formik.errors.password} label="Senha" type="password" name="password" />
                 <Error error={error || errorRegister} />
-                <Button>Cadastrar</Button>
+                {loading?<Button disabled={true}>Carregando...</Button>:<Button>Cadastrar</Button>}
             </Form>
         </AnimeLeft>
     )
