@@ -11,7 +11,7 @@ export const ContextAuth = createContext(null)
 export function ProviderAuth({ children }) {
     const [user, setUser] = useState(null)
     const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const navigate = useNavigate()
 
@@ -41,6 +41,10 @@ export function ProviderAuth({ children }) {
         }
 
         autoLoading()
+
+        return ()=> {
+            setLoading(false)
+        }
     }, [])
 
 
@@ -73,11 +77,13 @@ export function ProviderAuth({ children }) {
             setLoading(false)
         }
 
-        
+        return ()=> {
+            setLoading(false)
+        }
     }
 
     async function userLogout() {
-        api.defaults.headers.common['Authorization'] = null;
+        delete api.defaults.headers.common['Authorization'];
         setUser(null)
         setError(null)
         setLoading(false)
