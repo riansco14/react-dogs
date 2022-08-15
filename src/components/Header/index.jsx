@@ -4,7 +4,7 @@ import { ContextAuth } from '../../hooks/useAuth'
 import { Container, LinkLogin, LinkLogo, Nav } from './styles'
 
 export function Header() {
-    const { user, userLogout } = useContext(ContextAuth)
+    const { user } = useContext(ContextAuth)
     return (
         <Container>
             <Nav className='container'>
@@ -13,9 +13,8 @@ export function Header() {
                     </LinkLogo>
 
                 {user && user?.nome ? (
-                    <LinkLogin className='login' to="/conta">
+                    <LinkLogin className='login' to="/account">
                         {user.nome}
-                        <button onClick={()=>userLogout()}>Sair</button>
                     </LinkLogin>):
                     (<LinkLogin className='login' to="/login">Login</LinkLogin>)}
 
