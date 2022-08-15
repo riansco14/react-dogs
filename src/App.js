@@ -7,6 +7,10 @@ import { Login } from './views/Login';
 import { ProviderAuth } from './hooks/useAuth';
 import { GlobalStyle, theme } from './globalStyles';
 import { ThemeProvider } from 'styled-components';
+import { NotFound } from './views/NotFound/';
+import { ProtectedRoute } from './components/Helpers/ProtectedRoute';
+import { User } from './views/User';
+import { AuthLoading } from 'components/Helpers/AuthLoading';
 
 function App() {
   return (
@@ -16,10 +20,18 @@ function App() {
           <ProviderAuth>
             <GlobalStyle />
             <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login/*" element={<Login />} />
-            </Routes>
+            <AuthLoading>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="login/*" element={<ProtectedRoute userExists={true} redirectPath="/account" />} >
+                  <Route index element={<Login />} />
+                </Route>
+                <Route element={<ProtectedRoute />} >
+                  <Route path="account/*" element={<User />} />
+                </Route>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </AuthLoading>
             <Footer />
           </ProviderAuth>
         </ThemeProvider>
