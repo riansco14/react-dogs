@@ -1,17 +1,12 @@
-import React, { useContext } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import React from 'react';
+import {  Route, Routes } from 'react-router-dom';
 import { LoginCreate } from './LoginCreate';
 import { LoginForm } from './LoginForm';
 import { LoginPasswordReset } from './LoginPasswordReset';
 import { LoginLostPassword } from './LoginLostPassword';
 import { Container, FormContainer } from './styles';
-import { ContextAuth } from '../../hooks/useAuth';
 
 export function Login() {
-  const { user } = useContext(ContextAuth)
-
-  if (user)
-    return <Navigate to="/conta" />
   return (
     <Container>
       <FormContainer>
