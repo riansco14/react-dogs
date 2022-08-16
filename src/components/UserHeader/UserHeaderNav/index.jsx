@@ -1,21 +1,31 @@
-import React, { useContext, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 
-import {Container} from './styles'
-import {Button} from '../../Forms/Button'
+import {Container, MobileButton} from './styles'
 
 import { ReactComponent as  Feed} from 'assets/feed.svg'
 import { ReactComponent as  Statistics} from 'assets/estatisticas.svg'
 import { ReactComponent as  AddPhoto} from 'assets/adicionar.svg'
 import { ReactComponent as Logout } from 'assets/sair.svg'
 import { ContextAuth } from '../../../hooks/useAuth'
+import { useMedia } from 'hooks/useMedia'
 
 export function UserHeaderNav() {
-    const [mobile, setMobile] = useState(null)
     const { userLogout } = useContext(ContextAuth)
 
-    return (
-        <Container>
+    const mobile = useMedia('(max-width: 40rem)')
+    const [mobileMenu, setMobileMenu] = useState(false)
+
+    const { pathname } = useLocation()
+
+    useEffect(() => {
+        setMobileMenu(false)
+    }, [pathname])
+    
+
+    return (<>
+        {mobile && <MobileButton mobileMenu={mobileMenu} onClick={()=>setMobileMenu(oldState=>!oldState)}></MobileButton>}
+        <Container mobile={mobile} mobileMenu={mobileMenu}>
             <NavLink to="/account" end >
                 <Feed />
                 {mobile && 'Minhas fotos'}
@@ -28,10 +38,11 @@ export function UserHeaderNav() {
                 <AddPhoto />
                 {mobile && 'Adicionar Fotos'}
             </NavLink>
-            <button onClick={()=>userLogout()}>
+            <button className='buttonLogout' onClick={()=>userLogout()}>
                 <Logout />
                 {mobile && 'Sair'}
             </button>   
         </Container>
+        </>
     )
 }
