@@ -9,7 +9,7 @@ import {Container} from './styles'
 
 export function User() {
     return (
-        <Container>
+        <Container className='container'>
             <UserHeader />
             <Routes>
                 <Route path='/' element={<Feed />} />
