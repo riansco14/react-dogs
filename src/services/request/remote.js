@@ -33,7 +33,17 @@ export async function postPhoto(formData) {
             "Content-Type": "multipart/form-data",
         },
     })
+}
 
+export async function getPhotos({page,total,user}) {
+    const response = await api.get(`api/photo/?_page=${page}&_total=${total}&_user${user}`)
+    return response.data
+}
+
+
+export async function getPhoto(id) {
+    const response = await api.get(`api/photo/${id}`)
+    return response.data
 }
 
 
