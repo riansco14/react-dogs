@@ -21,7 +21,7 @@ export function FeedPhotos({ setModalPhoto }) {
     if(data)
         return (<Container>
                 <FeedContainer>
-                    {data.map(item=>(<FeedPhotosItem key={item.id} photo={item} />))}
+                    {data.map(item=>(<FeedPhotosItem key={item.id} photo={item} onClick={()=>setModalPhoto(item)}  />))}
                 </FeedContainer>
             </Container>
         )
