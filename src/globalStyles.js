@@ -115,6 +115,14 @@ export const spin = keyframes`
     }
 `
 
+
+export const scaleUp = keyframes`
+    to {
+        opacity: initial;
+        transform: initial;
+    }
+`
+
 export const SpinLoading = styled.div`
     width: 64px;
     height: 64px;
