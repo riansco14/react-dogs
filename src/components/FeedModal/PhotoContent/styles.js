@@ -81,9 +81,10 @@ export const DetailsAttributesList = styled.ul`
 `
 
 export const Image = styled.img`
-    grid-row: 1/4;
 `
 
 export const Details = styled.div`
+    display: flex;
+    flex-direction: column;
     padding: 2rem 2rem 0 2rem;
 `

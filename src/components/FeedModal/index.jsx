@@ -9,7 +9,8 @@ import { PhotoContent } from './PhotoContent'
 import {Container, Image} from './styles'
 
 export function FeedModal({photo, closeModal}) {
-    const {data, isLoading , error } = useQuery(['photo', photo.id], () => getPhoto(photo.id))
+    const { data, isLoading, error } = useQuery(['photo', photo.id], () => getPhoto(photo.id))
+    
     if (isLoading)
         return <SpinLoading />
     

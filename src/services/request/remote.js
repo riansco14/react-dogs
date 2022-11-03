@@ -35,7 +35,7 @@ export async function postPhoto(formData) {
     })
 }
 
-export async function getPhotos({page,total,user}) {
+export async function getPhotos({ page, total, user }) {
     const response = await api.get(`api/photo/?_page=${page}&_total=${total}&_user${user}`)
     return response.data
 }
@@ -47,4 +47,13 @@ export async function getPhoto(id) {
 }
 
 
+export async function getComments(id) {
+    const response = await api.get(`api/comment/${id}`)
+    return response.data
+}
+
+export async function postComment(id, data) {
+    const response = await api.post(`api/comment/${id}`, data)
+    return response.data
+}
 

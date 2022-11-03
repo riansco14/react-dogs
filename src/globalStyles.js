@@ -123,6 +123,16 @@ export const scaleUp = keyframes`
     }
 `
 
+
+export const effectLatir = keyframes`
+    from{
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`
+
 export const SpinLoading = styled.div`
     width: 64px;
     height: 64px;
