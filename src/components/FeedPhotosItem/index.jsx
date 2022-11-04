@@ -1,6 +1,7 @@
+import { Image } from 'components/Helpers/Image'
 import React from 'react'
 
-import {Container, Image, ImageNumberAccess} from './styles'
+import {Container, ImageNumberAccess} from './styles'
 
 export function FeedPhotosItem({ photo, onClick }) {
     

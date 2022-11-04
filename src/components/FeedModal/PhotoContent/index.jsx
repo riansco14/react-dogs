@@ -1,3 +1,4 @@
+import { Image } from 'components/Helpers/Image'
 import { Title } from 'globalStyles'
 import { ContextAuth } from 'hooks/useAuth'
 import React from 'react'
@@ -6,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { PhotoComments } from '../PhotoComments'
 import { PhotoDelete } from '../PhotoDelete'
 
-import { AuthorContainer, Container, Details, DetailsAttributesList, DetailsVisualizationsSpan, Image } from './styles'
+import { AuthorContainer, Container, Details, DetailsAttributesList, DetailsVisualizationsSpan } from './styles'
 
 export function PhotoContent({ data }) {
     const { user } = useContext(ContextAuth)

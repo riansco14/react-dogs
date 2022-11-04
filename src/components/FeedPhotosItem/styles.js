@@ -36,12 +36,11 @@ export const Container = styled.li`
         display: flex;  
     }
 
+    & > div{
+        grid-area: 1/1;
+    }
 
-`
 
-
-export const Image = styled.img`
-    grid-area: 1/1;
 `
 
 

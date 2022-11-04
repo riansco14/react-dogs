@@ -133,6 +133,15 @@ export const effectLatir = keyframes`
     }
 `
 
+export const effectSkeleton = keyframes`
+    from{
+        background-position:0px;
+    }
+    to {
+        background-position:-200%;
+    }
+`
+
 export const SpinLoading = styled.div`
     width: 64px;
     height: 64px;
