@@ -47,6 +47,11 @@ export async function getPhoto(id) {
 }
 
 
+export async function deletePhoto(id) {
+    const response = await api.delete(`api/photo/${id}`)
+    return response
+}
+
 export async function getComments(id) {
     const response = await api.get(`api/comment/${id}`)
     return response.data
