@@ -36,7 +36,7 @@ export async function postPhoto(formData) {
 }
 
 export async function getPhotos({ page, total, user }) {
-    const response = await api.get(`api/photo/?_page=${page}&_total=${total}&_user${user}`)
+    const response = await api.get(`api/photo/?_page=${page}&_total=${total}&_user=${user}`)
     return response.data
 }
 
