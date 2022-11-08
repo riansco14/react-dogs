@@ -1,3 +1,4 @@
+import { AuthLoading } from "components/Helpers/AuthLoading";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
@@ -93,6 +94,6 @@ export function ProviderAuth({ children }) {
 
 
     return <ContextAuth.Provider value={{user, loading, error, userLogin, userLogout }}>
-        {children}
+        {loading ? (<AuthLoading>{ children }</AuthLoading>):children}
     </ContextAuth.Provider>
 }
