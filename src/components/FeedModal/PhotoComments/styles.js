@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Container = styled.div`
     display: flex;
@@ -7,9 +7,12 @@ export const Container = styled.div`
 `
 
 export const CommentListContainer = styled.ul`
-    flex: 1 1 0;
-    height: 200px;
-    overflow-y: auto;
+   ${({ single }) => single ? css`
+    `: css`
+        flex: 1 1 0;
+        height: 200px;
+        overflow-y: auto;
+    `}
 
 `
 

@@ -8,7 +8,7 @@ import { useFormik } from 'formik'
 import { schema } from './consts'
 import { Error } from 'components/Helpers/Error'
 
-export function PhotoCommentsForm({ user, handleAddComment }) {
+export function PhotoCommentsForm({ user, handleAddComment, single }) {
     const queryClient = useQueryClient()
 
     const { mutate } = useMutation((data) => postComment(user.id, data), {
@@ -32,7 +32,7 @@ export function PhotoCommentsForm({ user, handleAddComment }) {
 
 
     return (
-        <Container onSubmit={formik.handleSubmit}>
+        <Container single={single} onSubmit={formik.handleSubmit}>
             <TextAreaContainer>
                 <TextArea
                     id='comment'

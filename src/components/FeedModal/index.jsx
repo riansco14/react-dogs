@@ -11,7 +11,7 @@ import { PhotoContent } from './PhotoContent'
 import {Container, Image} from './styles'
 
 export function FeedModal({photo, closeModal}) {
-    const { data, isFetching, error } = useQuery(['photo', photo.id], () => getPhoto(photo.id))
+    const { data, isLoading, error } = useQuery(['photo', photo.id], () => getPhoto(photo.id))
     
     
     function handleOutsideClick(event) {
@@ -21,7 +21,7 @@ export function FeedModal({photo, closeModal}) {
 
     return (
         <Container onClick={handleOutsideClick}>
-            {isFetching? (<Loading/>):(data ? (<PhotoContent data={data} />) : null)}
+            {isLoading? (<Loading/>):(data ? (<PhotoContent data={data} />) : null)}
             {error && <Error error={error} />}
         </Container>
     )

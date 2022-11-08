@@ -12,8 +12,14 @@ import { ProtectedRoute } from './components/Helpers/ProtectedRoute';
 import { User } from './views/User';
 import { AuthLoading } from 'components/Helpers/AuthLoading';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Photo } from 'views/Photo';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },})
 
 
 function App() {
@@ -25,7 +31,6 @@ function App() {
             <ProviderAuth>
               <GlobalStyle />
               <Header />
-              <AuthLoading>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="login/*" element={<ProtectedRoute userExists={true} redirectPath="/account" />} >
@@ -34,9 +39,9 @@ function App() {
                   <Route element={<ProtectedRoute />} >
                     <Route path="account/*" element={<User />} />
                   </Route>
+                  <Route path="photo/:id" element={<Photo />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
-              </AuthLoading>
               <Footer />
             </ProviderAuth>
           </QueryClientProvider>

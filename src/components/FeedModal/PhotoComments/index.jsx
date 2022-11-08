@@ -5,7 +5,7 @@ import { PhotoCommentsForm } from '../PhotoCommentsForm'
 
 import { CommentItemContainer, CommentListContainer, Container } from './styles'
 
-export function PhotoComments({ id, comments : comments_ }) {
+export function PhotoComments({ id, comments : comments_, single }) {
     const { user } = useContext(ContextAuth)
     const commentSection = useRef()
     const [comments, setComments] = useState([])
@@ -28,13 +28,13 @@ export function PhotoComments({ id, comments : comments_ }) {
 
 return (
     <Container>
-        <CommentListContainer ref={commentSection}>
+        <CommentListContainer single ref={commentSection}>
             { comments.map(comment => (<CommentItemContainer >
                 <b>{comment.comment_author}:</b>
                 <span>{comment.comment_content}</span>
             </CommentItemContainer>))}
         </CommentListContainer>
-        {user ? <PhotoCommentsForm user={user} handleAddComment={handleAddComment} /> : null}
+        {user ? <PhotoCommentsForm single user={user} handleAddComment={handleAddComment} /> : null}
     </Container>
 )
 }

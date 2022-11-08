@@ -9,12 +9,12 @@ import { PhotoDelete } from '../PhotoDelete'
 
 import { AuthorContainer, Container, Details, DetailsAttributesList, DetailsVisualizationsSpan } from './styles'
 
-export function PhotoContent({ data }) {
+export function PhotoContent({ data, single }) {
     const { user } = useContext(ContextAuth)
     const { photo, comments } = data
 
     return (
-        <Container>
+        <Container single={single}>
             <Image src={photo.src} />
             <Details>
                 <div>
@@ -27,14 +27,14 @@ export function PhotoContent({ data }) {
                         </DetailsVisualizationsSpan>
                     </AuthorContainer>
                     <Title>
-                        <Link to={`/foto/${photo.id}`}>{photo.title}</Link>
+                        <Link to={`/photo/${photo.id}`}>{photo.title}</Link>
                     </Title>
                     <DetailsAttributesList>
                         <li>{photo.peso} kg</li>
                         <li>{photo.idade} anos</li>
                     </DetailsAttributesList>
                 </div>
-                <PhotoComments id={photo.id} comments={comments} />
+                <PhotoComments id={photo.id} single={single} comments={comments} />
             </Details>
         </Container>
     )

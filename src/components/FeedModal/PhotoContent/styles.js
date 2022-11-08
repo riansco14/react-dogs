@@ -1,34 +1,53 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import VisualizationBlack from '../../../assets/visualizacao-black.svg'
 import { scaleUp } from 'globalStyles'
+import { Image } from 'components/Helpers/Image'
 
 export const Container = styled.div`
-    margin: auto;
-    height: 36rem;
-    border-radius: 0.2rem;
-
-    background-color: white;
-
-    display: grid;
-    grid-template-columns: 36rem 20rem;
-    grid-template-rows: auto 1fr auto;
-    overflow: hidden;
-    opacity: 0;
-    transform: scale(0.8);
-    animation: ${scaleUp} 0.3s forwards;
-
-
-    @media (max-width: 64rem) {
+    ${({ single }) => single ? css`
+        grid-template-columns: 1fr;
         height: auto;
-        max-height: calc(100vh - 4rem);
-        overflow-y: auto;
-        grid-template-columns: minmax(20rem, 40rem);
 
-        img{
-            grid-row: 1;
+        & ${Details}{
+            padding: 2rem 0px 0px 0px;
         }
 
-    }
+        &  img{
+            margin-top: 1rem;
+            grid-row: 1;
+            border-radius: 0.4rem;
+            overflow: hidden;
+        }
+
+    `: css`
+        margin: auto;
+        height: 36rem;
+        border-radius: 0.2rem;
+
+        background-color: white;
+
+        display: grid;
+        grid-template-columns: 36rem 20rem;
+        grid-template-rows: auto 1fr auto;
+        overflow: hidden;
+        opacity: 0;
+        transform: scale(0.8);
+        animation: ${scaleUp} 0.3s forwards;
+
+
+        @media (max-width: 64rem) {
+            height: auto;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+            grid-template-columns: minmax(20rem, 40rem);
+
+            img{
+                grid-row: 1;
+            }
+
+        }
+    `}
+    
 `
 
 export const AuthorContainer = styled.p`
@@ -41,7 +60,7 @@ export const AuthorContainer = styled.p`
     & a:hover{
         text-decoration: underline;
     }
-`   
+`
 
 export const DetailsVisualizationsSpan = styled.span`
 
@@ -78,9 +97,6 @@ export const DetailsAttributesList = styled.ul`
         margin-top: 5px;
     }
 
-`
-
-export const Image = styled.img`
 `
 
 export const Details = styled.div`

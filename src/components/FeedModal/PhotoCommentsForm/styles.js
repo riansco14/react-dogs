@@ -1,11 +1,15 @@
 import { effectLatir } from 'globalStyles'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Container = styled.form`
     display: grid;
     grid-template-columns: 1fr auto; 
     align-items: stretch;
-    margin: 1rem;
+    
+    
+    ${({ single }) => !single  && css`
+        margin: 1rem;
+    `}
 `
 
 export const TextArea = styled.textarea`
